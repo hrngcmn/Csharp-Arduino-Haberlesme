@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO.Ports;
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        string gelen ;
+        DateTime yeni = DateTime.Now;
+        int zaman = 0;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            serialPort1.Close(); // form açıldığında seri port ekranı kapalı.
+            DateTime yeni = DateTime.Now;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if(textBox1.Text=="")
+            {
+                MessageBox.Show("Serial port COM değerini giriniz!!");
+            }
+    
+            serialPort1.PortName = ("COM" +textBox1.Text);
+            serialPort1.Open();
+            timer1.Enabled = true;
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            gelen = serialPort1.ReadLine();
+            this.chart1.Series["veri"].Points.AddXY(zaman, Convert.ToInt16(gelen));
+            zaman = (zaman + 1);
+            listBox1.Items.Add(yeni.ToLongTimeString());
+            listBox2.Items.Add(gelen);
+            if (Convert.ToDouble(gelen) <= 20)
+                listBox3.Items.Add("ÇOK YAKIN");
+            if (Convert.ToDouble(gelen) > 20)
+                listBox3.Items.Add("..");
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            serialPort1.Close();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+            textBox1.Clear();
+        }
+        private void chart1_Click(object sender, EventArgs e)
+        {
+        }
+    }
+}
