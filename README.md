@@ -5,3 +5,4 @@ Arduino park sensörü için yazdığım proje ile c# haberleştirilerek. Form a
 🟠using System.IO.Ports; // kütüphanesini eklemeyi unutmayınız.❗
 🟠Arduinodan alınan veriler listenir.
 🟠Her listelenmede o anki saat yazdırılır.
+💣DİKKAT: gitbuh depolarımdan arduino park sensörü programlanması hakkında detaylı bilgiye ulaşabilirsiniz.📌
